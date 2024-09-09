@@ -16,4 +16,4 @@ senha = [sem senha]
 - Para puxar as atualizações no banco de dados importe o arquivo "backup.sql" do repositório;
 - Realize as modificações normalmente através do workbench;
 - Para salvar suas alterações para todos, pressione o botão exportar no streamlit;
-- Ao realizar as ações de importar e exportar a senha será solicitada no terminal, basta pressionar enter
+- Ao realizar as ações de importar e exportar a senha será solicitada no terminal, basta pressionar enter.

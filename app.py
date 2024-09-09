@@ -1,6 +1,7 @@
 import streamlit as st
 import subprocess
 import os
+import mysql.connector
 
 # Função para exportar o banco de dados
 def exportar_banco():
@@ -42,8 +43,18 @@ def importar_banco(file_path):
     subprocess.run(comando, shell=True)
     st.success("Banco de dados importado com sucesso!")
 
-st.title("Importação de Banco de Dados")
+def conectar():
+    conn = mysql.connector.connect(
+    host="localhost",        # Endereço do servidor MySQL (localhost, se local)
+    user="root",         # Usuário MySQL
+    password="",       # Senha do usuário MySQL
+    database="programacoes_de_filmes"        # Nome do banco de dados
+    )
+    return conn
 
+
+st.title("Importação de Banco de Dados")
+conectar()
 uploaded_file = st.file_uploader("Faça upload do arquivo SQL", type="sql")
 
 if uploaded_file is not None:
