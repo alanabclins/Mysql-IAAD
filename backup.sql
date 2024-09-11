@@ -1,13 +1,13 @@
--- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.13  Distrib 8.0.39, for Win64 (x86_64)
 --
 -- Host: localhost    Database: programacoes_de_filmes
 -- ------------------------------------------------------
--- Server version	10.4.32-MariaDB
+-- Server version	8.0.39
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,11 +21,11 @@
 
 DROP TABLE IF EXISTS `canal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `canal` (
-  `num_canal` int(11) NOT NULL,
-  `nome` varchar(50) NOT NULL,
-  `sigla` varchar(25) DEFAULT NULL,
+  `num_canal` int NOT NULL,
+  `nome` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `sigla` varchar(25) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`num_canal`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -38,6 +38,26 @@ LOCK TABLES `canal` WRITE;
 /*!40000 ALTER TABLE `canal` DISABLE KEYS */;
 /*!40000 ALTER TABLE `canal` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `canal_before_insert` BEFORE INSERT ON `canal` FOR EACH ROW BEGIN
+    IF NEW.nome = 'Proibido' THEN
+        SIGNAL SQLSTATE '45000' 
+        SET MESSAGE_TEXT = 'Inserção bloqueada: Nome do canal não permitido.';
+    END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `exibicao`
@@ -45,10 +65,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `exibicao`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `exibicao` (
-  `num_filme` int(11) NOT NULL,
-  `num_canal` int(11) NOT NULL,
+  `num_filme` int NOT NULL,
+  `num_canal` int NOT NULL,
   `data_exibicao` datetime NOT NULL,
   PRIMARY KEY (`num_filme`,`num_canal`,`data_exibicao`),
   KEY `num_canal` (`num_canal`),
@@ -72,15 +92,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `filme`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `filme` (
-  `num_filme` int(11) NOT NULL,
-  `titulo_original` varchar(80) NOT NULL,
-  `titulo_brasil` varchar(80) DEFAULT NULL,
-  `ano_lancamento` year(4) NOT NULL,
-  `pais_origem` varchar(30) DEFAULT NULL,
-  `categoria` varchar(25) NOT NULL,
-  `duracao` int(11) NOT NULL,
+  `num_filme` int NOT NULL,
+  `titulo_original` varchar(80) COLLATE utf8mb4_general_ci NOT NULL,
+  `titulo_brasil` varchar(80) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ano_lancamento` year NOT NULL,
+  `pais_origem` varchar(30) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `categoria` varchar(25) COLLATE utf8mb4_general_ci NOT NULL,
+  `duracao` int NOT NULL,
   PRIMARY KEY (`num_filme`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -103,4 +123,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-05 21:42:00
+-- Dump completed on 2024-09-10 21:26:25
