@@ -30,7 +30,6 @@ def update_exibicao(tabela, campos_valores, pk_valores):
         cursor = conexao.cursor()
         set_clause = ', '.join([f"{coluna} = %s" for coluna in campos_valores.keys()])
         where_clause = ' AND '.join([f"{coluna} = %s" for coluna in pk_valores.keys()])
-        print(where_clause)
         query = f"UPDATE {tabela} SET {set_clause} WHERE {where_clause};"
 
         cursor.execute(query, tuple(campos_valores.values()) + tuple(pk_valores.values()))

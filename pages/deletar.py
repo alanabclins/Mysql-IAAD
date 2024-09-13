@@ -10,10 +10,17 @@ def conectar_db():
     )
 
 # Função para deletar um registro
-def delete(conexao, table: str, id_column: str, id_value):
+def delete( table: str, pk_valores: dict, id_column=None, id_value=None):
+    conexao = conectar_db()
     cursor = conexao.cursor()
-    query = f"DELETE FROM {table} WHERE {id_column} = %s"
-    cursor.execute(query, (id_value,))
+    if table == 'Exibicao':
+        where_clause = ' AND '.join([f"{coluna} = %s" for coluna in pk_valores.keys()])
+        print(where_clause)
+        query = f"DELETE FROM {table} WHERE {where_clause};"
+        cursor.execute(query, tuple(pk_valores.values()))
+    else:
+        query = f"DELETE FROM {table} WHERE {id_column} = %s"
+        cursor.execute(query, (id_value,))
     conexao.commit()
     cursor.close()
     conexao.close()
@@ -31,7 +38,7 @@ with st.form("delete"):
         submit_delete = st.form_submit_button('Deletar')
         if submit_delete:
             conexao = conectar_db()
-            delete(conexao, tabela_escolhida, 'num_filme', num_filme)
+            delete(tabela_escolhida, 'num_filme', num_filme)
             st.success('Registro deletado com sucesso!')
 
     elif tabela_escolhida == 'Canal':
@@ -39,14 +46,21 @@ with st.form("delete"):
         submit_delete = st.form_submit_button('Deletar')
         if submit_delete:
             conexao = conectar_db()
-            delete(conexao, tabela_escolhida, 'num_canal', num_canal)
+            delete(tabela_escolhida, 'num_canal', num_canal)
             st.success('Registro deletado com sucesso!')
 
     elif tabela_escolhida == 'Exibicao':
         num_filme = st.number_input('Número do filme na exibição a deletar')
         num_canal = st.number_input('Número do canal na exibição a deletar')
+        data_exibicao = st.text_input('Data de exibição do filme')
         submit_delete = st.form_submit_button('Deletar')
+
         if submit_delete:
-            conexao = conectar_db()
-            delete(conexao, tabela_escolhida, 'num_filme', num_filme)
+            pk_valores = {
+                'num_filme': num_filme,
+                'num_canal': num_canal,
+                'data_exibicao': data_exibicao
+            }
+
+            delete(tabela_escolhida, pk_valores )
             st.success('Registro deletado com sucesso!')

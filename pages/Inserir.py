@@ -16,6 +16,7 @@ def insert(table: str, valores: tuple):
         columns = cursor.column_names
         cursor.execute(f"INSERT INTO {table} {columns} VALUES {valores}")
         conexao.commit()
+        st.success(f"Dados inseridos com sucesso.")
     except Error as e:
         st.error(f"Erro ao inserir o canal: {e}")
     finally:
