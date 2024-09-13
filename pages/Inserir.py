@@ -49,7 +49,6 @@ def canais_disponiveis():
         st.error(f"{e}")
     finally:
         if conexao.is_connected():
-
             cursor.close()
             conexao.close()
     return id_canais

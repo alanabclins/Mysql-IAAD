@@ -65,7 +65,6 @@ def canais_disponiveis(): # funcao que devolve lista de id de canais ja existent
         st.error(f"{e}")
     finally:
         if conexao.is_connected():
-
             cursor.close()
             conexao.close()
     return id_canais
