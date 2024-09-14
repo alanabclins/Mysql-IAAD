@@ -80,6 +80,7 @@ with st.form("update"):
 
     if tabela_escolhida == 'Filme':
         num_filme = st.selectbox('Numero ID filme ',filmes_disponiveis(), None, placeholder='Escolha um ID de um filme ja inserido.')
+        novo_num_filme = duracao = st.number_input('Novo ID', value=None)
         titulo_original = st.text_input('Novo titulo original')
         titulo_brasil = st.text_input('Novo titulo brasileiro')
         ano_lancamento = st.text_input('Novo ano')
@@ -90,6 +91,8 @@ with st.form("update"):
 
         if submit_update:
             campos_valores = {}
+            if novo_num_filme:
+                campos_valores['num_filme'] = novo_num_filme
             if titulo_original:
                 campos_valores['titulo_original'] = titulo_original
             if titulo_brasil:

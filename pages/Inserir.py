@@ -24,7 +24,7 @@ def insert(table: str, valores: tuple):
             cursor.close()
             conexao.close()
 
-
+            
 def filmes_disponiveis(): # funcao que devolve lista de id de filmes ja existentes.
     conexao = conectar()
     try:
@@ -53,7 +53,7 @@ def canais_disponiveis():
             conexao.close()
     return id_canais
 
-      
+
 st.subheader("Inserir dados")
 
 tabela_escolhida = st.selectbox("Escolha a tabela na qual deseja inserir",("Filme", "Canal", "exibicao"))
@@ -86,7 +86,7 @@ with st.form("insert"):
     elif tabela_escolhida == 'exibicao':
         num_filme_exibicao = st.selectbox('Numero ID filme ',filmes_disponiveis(), None, placeholder='Escolha um ID de um filme ja inserido.')
         num_canal_exibicao = st.selectbox('Numero ID canal', canais_disponiveis(), None, placeholder='Escolha o ID de um canal ja inserido.')
-        data_exibicao = st.text_input('Data e horario de exibição')
+        data_exibicao = st.text_input('Data e horario de exibição', placeholder='yyyy-mm-dd hh:mm:ss')
         submit_exibicao = st.form_submit_button('Inserir dados')
         if submit_exibicao:
             valores = (num_filme_exibicao,num_canal_exibicao,data_exibicao)
