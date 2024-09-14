@@ -36,7 +36,7 @@ CREATE TABLE `canal` (
 
 LOCK TABLES `canal` WRITE;
 /*!40000 ALTER TABLE `canal` DISABLE KEYS */;
-INSERT INTO `canal` VALUES (1,'HBO','HBO'),(2,'Cinemax','CMX'),(3,'Telecine','TC'),(4,'TNT','TNT'),(5,'FOX','FOX'),(6,'Netflix','NFLX'),(7,'Amazon Prime','AMZN'),(8,'Disney+','DIS+');
+INSERT INTO `canal` VALUES (1,'HBO','HBO'),(2,'Cinemax','CMX'),(3,'Telecine','TC'),(4,'TNT','TNT'),(5,'FOX','FOX'),(6,'Netflix','NFLX'),(7,'Amazon Prime','AMZN'),(8,'Disney+','DIS+'),(9,'AMC','AMC'),(10,'Syfy','SYF'),(11,'FX','FX'),(12,'Star Channel','STAR'),(13,'Sony','SONY'),(14,'HBO Max','HBOM'),(15,'Paramount+','PAR+'),(16,'Apple TV+','APL+');
 /*!40000 ALTER TABLE `canal` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -84,7 +84,7 @@ CREATE TABLE `exibicao` (
 
 LOCK TABLES `exibicao` WRITE;
 /*!40000 ALTER TABLE `exibicao` DISABLE KEYS */;
-INSERT INTO `exibicao` VALUES (1,1,'2024-09-01 20:00:00'),(5,1,'2024-09-09 20:00:00'),(2,2,'2024-09-03 21:00:00'),(5,2,'2024-09-10 21:00:00'),(1,3,'2024-09-02 22:00:00'),(6,3,'2024-09-11 22:00:00'),(2,4,'2024-09-04 19:00:00'),(6,4,'2024-09-12 19:30:00'),(3,5,'2024-09-05 20:30:00'),(7,5,'2024-09-13 20:30:00'),(3,6,'2024-09-06 23:00:00'),(7,6,'2024-09-14 21:00:00'),(4,7,'2024-09-07 18:00:00'),(8,7,'2024-09-15 18:00:00'),(4,8,'2024-09-08 17:30:00'),(8,8,'2024-09-16 17:00:00');
+INSERT INTO `exibicao` VALUES (1,1,'2024-09-01 20:00:00'),(5,1,'2024-09-09 20:00:00'),(2,2,'2024-09-03 21:00:00'),(5,2,'2024-09-10 21:00:00'),(1,3,'2024-09-02 22:00:00'),(6,3,'2024-09-11 22:00:00'),(2,4,'2024-09-04 19:00:00'),(6,4,'2024-09-12 19:30:00'),(3,5,'2024-09-05 20:30:00'),(7,5,'2024-09-13 20:30:00'),(3,6,'2024-09-06 23:00:00'),(7,6,'2024-09-14 21:00:00'),(4,7,'2024-09-07 18:00:00'),(8,7,'2024-09-15 18:00:00'),(4,8,'2024-09-08 17:30:00'),(8,8,'2024-09-16 17:00:00'),(9,9,'2024-09-17 20:00:00'),(10,10,'2024-09-18 21:00:00'),(11,11,'2024-09-19 22:00:00'),(12,12,'2024-09-20 19:00:00'),(13,13,'2024-09-21 20:30:00'),(14,14,'2024-09-22 21:30:00'),(15,15,'2024-09-23 18:00:00'),(16,16,'2024-09-24 17:00:00');
 /*!40000 ALTER TABLE `exibicao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,7 +113,7 @@ CREATE TABLE `filme` (
 
 LOCK TABLES `filme` WRITE;
 /*!40000 ALTER TABLE `filme` DISABLE KEYS */;
-INSERT INTO `filme` VALUES (1,'The Godfather','O Poderoso Chefão',1972,'USA','Crime',175),(2,'The Dark Knight','O Cavaleiro das Trevas',2008,'USA','Action',152),(3,'Inception','A Origem',2010,'USA','Sci-Fi',148),(4,'Parasite','Parasita',2019,'South Korea','Thriller',132),(5,'Interstellar','Interestelar',2014,'USA','Sci-Fi',169),(6,'Joker','Coringa',2019,'USA','Drama',122),(7,'Avatar','Avatar',2009,'USA','Adventure',162),(8,'Titanic','Titanic',1997,'USA','Romance',195);
+INSERT INTO `filme` VALUES (1,'The Godfather','O Poderoso Chefão',1972,'USA','Crime',175),(2,'The Dark Knight','O Cavaleiro das Trevas',2008,'USA','Action',152),(3,'Inception','A Origem',2010,'USA','Sci-Fi',148),(4,'Parasite','Parasita',2019,'South Korea','Thriller',132),(5,'Interstellar','Interestelar',2014,'USA','Sci-Fi',169),(6,'Joker','Coringa',2019,'USA','Drama',122),(7,'Avatar','Avatar',2009,'USA','Adventure',162),(8,'Titanic','Titanic',1997,'USA','Romance',195),(9,'Fight Club','Clube da Luta',1999,'USA','Drama',139),(10,'Pulp Fiction','Pulp Fiction',1994,'USA','Crime',154),(11,'The Matrix','Matrix',1999,'USA','Sci-Fi',136),(12,'Forrest Gump','Forrest Gump: O Contador de Histórias',1994,'USA','Drama',142),(13,'Gladiator','Gladiador',2000,'USA','Action',155),(14,'The Shawshank Redemption','Um Sonho de Liberdade',1994,'USA','Drama',142),(15,'Inglourious Basterds','Bastardos Inglórios',2009,'USA','War',153),(16,'The Avengers','Os Vingadores',2012,'USA','Action',143);
 /*!40000 ALTER TABLE `filme` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -126,4 +126,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-14 16:53:19
+-- Dump completed on 2024-09-14 17:05:03
