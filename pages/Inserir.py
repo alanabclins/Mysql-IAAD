@@ -34,10 +34,10 @@ with st.form("Insert"):
 
     if tabela_escolhida=='Filme':
         num_filme = st.number_input('Numero ID do filme', value=None)
-        titulo_original = st.text_input('Titulo original')
-        titulo_br = st.text_input('Titulo brasileiro')
+        titulo_original = st.text_input('Título original')
+        titulo_br = st.text_input('Título brasileiro')
         ano = st.text_input('Ano')
-        pais_origem = st.text_input('Pais de origem')
+        pais_origem = st.text_input('País de origem')
         categoria = st.text_input('Categoria')
         duracao = st.number_input('Duração do filme', value=None)
         submit = st.form_submit_button('Inserir dados')
@@ -55,13 +55,13 @@ with st.form("Insert"):
             insert(tabela_escolhida,valores)
 
     elif tabela_escolhida == 'Exibicao':
-        nome_filmes = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme ja inserido.')
+        nome_filmes = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme já inserido.')
         if nome_filmes:
             num_filme_exibicao = get_id_filme(nome_filmes)
-        nome_canal_exibicao = st.selectbox('Numero ID canal', get_nome_canal(), None, placeholder='Escolha o ID de um canal ja inserido.')
+        nome_canal_exibicao = st.selectbox('Numero ID canal', get_nome_canal(), None, placeholder='Escolha o ID de um canal já inserido.')
         if nome_canal_exibicao:
             num_canal_exibicao = get_id_canal(nome_canal_exibicao)
-        data_exibicao = st.text_input('Data e horario de exibição', placeholder='yyyy-mm-dd hh:mm:ss')
+        data_exibicao = st.text_input('Data e horário de exibição', placeholder='yyyy-mm-dd hh:mm:ss')
         submit_exibicao = st.form_submit_button('Inserir dados')
         if submit_exibicao:
             valores = (num_filme_exibicao,num_canal_exibicao,data_exibicao)

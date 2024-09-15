@@ -52,14 +52,14 @@ with st.form("Update"):
     st.write(f"Atualizar na tabela {tabela_escolhida}")
 
     if tabela_escolhida == 'Filme':
-        nome_filme = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme ja inserido.')
+        nome_filme = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme já inserido.')
         if nome_filme:
             num_filme = get_id_filme(nome_filme)
         novo_num_filme = duracao = st.number_input('Novo ID', value=None)
-        titulo_original = st.text_input('Novo titulo original')
-        titulo_brasil = st.text_input('Novo titulo brasileiro')
+        titulo_original = st.text_input('Novo título original')
+        titulo_brasil = st.text_input('Novo título brasileiro')
         ano_lancamento = st.text_input('Novo ano')
-        pais_origem = st.text_input('Novo pais de origem')
+        pais_origem = st.text_input('Novo país de origem')
         categoria = st.text_input('Nova categoria')
         duracao = st.number_input('Nova duração do filme', value=None)
         submit_update = st.form_submit_button('Atualizar')
@@ -83,7 +83,7 @@ with st.form("Update"):
             update(tabela_escolhida, campos_valores, num_filme,'num_filme')
 
     elif tabela_escolhida == 'Canal':
-        nome_canal = st.selectbox('Numero ID canal ',get_nome_canal(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        nome_canal = st.selectbox('Numero ID canal ',get_nome_canal(), None, placeholder='Escolha um ID de um canal já inserido.')
         if nome_canal:
             num_canal = get_id_filme(nome_canal)
         num_canal_novo = st.text_input('Novo numero ID do canal')
@@ -103,10 +103,10 @@ with st.form("Update"):
             update(tabela_escolhida, campos_valores, num_canal, 'num_canal')
 
     elif tabela_escolhida == 'Exibicao':
-        nome_filme_exibicao = st.selectbox('Numero ID filme ',get_nome_filme(), None, placeholder='Escolha um ID de um filme ja inserido.')
+        nome_filme_exibicao = st.selectbox('Numero ID filme ',get_nome_filme(), None, placeholder='Escolha um ID de um filme já inserido.')
         if nome_filme_exibicao:
             num_filme_exibicao = get_id_filme(nome_filme_exibicao)
-        nome_canal_exibicao = st.selectbox('Numero ID canal ',get_nome_canal(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        nome_canal_exibicao = st.selectbox('Numero ID canal ',get_nome_canal(), None, placeholder='Escolha um ID de um canal já inserido.')
         if nome_canal_exibicao:
             num_canal_exibicao = get_id_canal(nome_canal_exibicao)
         data = st.text_input('Data de exibição atual')
