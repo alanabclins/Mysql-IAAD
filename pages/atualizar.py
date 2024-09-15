@@ -1,5 +1,6 @@
 import streamlit as st
 from mysql.connector import connect, Error
+from utils.funcoes import get_nome_filme, get_nome_canal, get_id_filme, get_id_canal
 
 def conectar():
     return connect(
@@ -41,45 +42,19 @@ def update_exibicao(tabela, campos_valores, pk_valores):
         if conexao.is_connected():
             cursor.close()
 
-def filmes_disponiveis(): # funcao que devolve lista de id de filmes ja existentes para o dropbox.
-    conexao = conectar()
-    try:
-        cursor = conexao.cursor()
-        cursor.execute(f"SELECT num_filme FROM filme;")
-        id_filmes = [id[0] for id in cursor.fetchall()]
-    except Error as e:
-        st.error(f"{e}")
-    finally:
-        if conexao.is_connected():
-            cursor.close()
-            conexao.close()
-    return id_filmes
-
-def canais_disponiveis(): # funcao que devolve lista de id de canais ja existentes para o dropbox.
-    conexao = conectar()
-    try:
-        cursor = conexao.cursor()
-        cursor.execute(f"SELECT num_canal FROM canal;")
-        id_canais = [id[0] for id in cursor.fetchall()]
-    except Error as e:
-        st.error(f"{e}")
-    finally:
-        if conexao.is_connected():
-            cursor.close()
-            conexao.close()
-    return id_canais
-
 
 
 st.subheader("Atualizar tabelas")
 
 tabela_escolhida = st.selectbox('Escolha a tabela que deseja atualizar', ['Filme', 'Canal', 'Exibicao'])
 
-with st.form("update"):
+with st.form("Update"):
     st.write(f"Atualizar na tabela {tabela_escolhida}")
 
     if tabela_escolhida == 'Filme':
-        num_filme = st.selectbox('Numero ID filme ',filmes_disponiveis(), None, placeholder='Escolha um ID de um filme ja inserido.')
+        nome_filme = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme ja inserido.')
+        if nome_filme:
+            num_filme = get_id_filme(nome_filme)
         novo_num_filme = duracao = st.number_input('Novo ID', value=None)
         titulo_original = st.text_input('Novo titulo original')
         titulo_brasil = st.text_input('Novo titulo brasileiro')
@@ -108,7 +83,9 @@ with st.form("update"):
             update(tabela_escolhida, campos_valores, num_filme,'num_filme')
 
     elif tabela_escolhida == 'Canal':
-        num_canal = st.selectbox('Numero ID canal ',canais_disponiveis(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        nome_canal = st.selectbox('Numero ID canal ',get_nome_canal(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        if nome_canal:
+            num_canal = get_id_filme(nome_canal)
         num_canal_novo = st.text_input('Novo numero ID do canal')
         nome = st.text_input('Novo nome do canal')
         sigla = st.text_input('Nova sigla')
@@ -126,8 +103,12 @@ with st.form("update"):
             update(tabela_escolhida, campos_valores, num_canal, 'num_canal')
 
     elif tabela_escolhida == 'Exibicao':
-        num_filme_exibicao = st.selectbox('Numero ID filme ',filmes_disponiveis(), None, placeholder='Escolha um ID de um filme ja inserido.')
-        num_canal_exibicao = st.selectbox('Numero ID canal ',canais_disponiveis(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        nome_filme_exibicao = st.selectbox('Numero ID filme ',get_nome_filme(), None, placeholder='Escolha um ID de um filme ja inserido.')
+        if nome_filme_exibicao:
+            num_filme_exibicao = get_id_filme(nome_filme_exibicao)
+        nome_canal_exibicao = st.selectbox('Numero ID canal ',get_nome_canal(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        if nome_canal_exibicao:
+            num_canal_exibicao = get_id_canal(nome_canal_exibicao)
         data = st.text_input('Data de exibição atual')
         nova_data = st.text_input('Nova data de exibição')
         submit_update = st.form_submit_button('Atualizar')

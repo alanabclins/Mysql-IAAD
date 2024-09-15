@@ -1,5 +1,6 @@
 import streamlit as st
 from mysql.connector import connect, Error
+from utils.funcoes import get_nome_filme, get_nome_canal, get_id_filme, get_id_canal
 
 def conectar():
     return connect(
@@ -8,33 +9,6 @@ def conectar():
         password="",
         database="programacoes_de_filmes"
     )
-def filmes_disponiveis(): # funcao que devolve lista de id de filmes ja existentes.
-    conexao = conectar()
-    try:
-        cursor = conexao.cursor()
-        cursor.execute(f"SELECT num_filme FROM filme;")
-        id_filmes = [id[0] for id in cursor.fetchall()]
-    except Error as e:
-        st.error(f"{e}")
-    finally:
-        if conexao.is_connected():
-            cursor.close()
-            conexao.close()
-    return id_filmes
-
-def canais_disponiveis():
-    conexao = conectar()
-    try:
-        cursor = conexao.cursor()
-        cursor.execute(f"SELECT num_canal FROM canal;")
-        id_canais = [id[0] for id in cursor.fetchall()]
-    except Error as e:
-        st.error(f"{e}")
-    finally:
-        if conexao.is_connected():
-            cursor.close()
-            conexao.close()
-    return id_canais
 
 
 def delete( table: str, pk_valores=None, id_value=None, id_column=None):
@@ -68,7 +42,9 @@ with st.form("delete"):
     st.write(f"Deletar um registro na tabela {tabela_escolhida}")
     
     if tabela_escolhida == 'Filme':
-        num_filme = st.selectbox('Numero ID filme ',filmes_disponiveis(), None, placeholder='Escolha um ID de um filme ja inserido.')
+        nome_filme = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme ja inserido.')
+        if nome_filme:
+            num_filme = get_id_filme(nome_filme)
         submit_delete = st.form_submit_button('Deletar')
         if submit_delete:
             
@@ -76,7 +52,9 @@ with st.form("delete"):
 
 
     elif tabela_escolhida == 'Canal':
-        num_canal = st.selectbox('Numero ID canal ',canais_disponiveis(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        nome_canal = st.selectbox('Numero ID canal ',get_nome_canal(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        if nome_canal:
+            num_canal = get_id_filme(nome_canal)
         submit_delete = st.form_submit_button('Deletar')
         if submit_delete:
             
@@ -84,8 +62,12 @@ with st.form("delete"):
 
 
     elif tabela_escolhida == 'Exibicao':
-        num_filme_exibicao = st.selectbox('Numero ID filme ',filmes_disponiveis(), None, placeholder='Escolha um ID de um filme ja inserido.')
-        num_canal_exibicao = st.selectbox('Numero ID canal ',canais_disponiveis(), None, placeholder='Escolha um ID de um canal ja inserido.')
+        nome_filme_exibicao = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme ja inserido.')
+        if nome_filme_exibicao:
+            num_filme_exibicao = get_id_filme(nome_filme_exibicao)
+        nome_canal_exibicao = st.selectbox('Nome canal ',get_nome_canal(), None, placeholder='Escolha um canal ja inserido.')
+        if nome_canal_exibicao:
+            num_canal_exibicao = get_id_canal(nome_canal_exibicao)
         data_exibicao = st.text_input('Data de exibição do filme a deletar')
         submit_delete = st.form_submit_button('Deletar')
 

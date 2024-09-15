@@ -1,5 +1,6 @@
 import streamlit as st
 from mysql.connector import connect, Error
+from utils.funcoes import get_nome_filme, get_nome_canal, get_id_filme, get_id_canal
 
 def conectar():
     return connect(
@@ -23,48 +24,18 @@ def insert(table: str, valores: tuple):
         if conexao.is_connected():
             cursor.close()
             conexao.close()
-
             
-def filmes_disponiveis(): # funcao que devolve lista de id de filmes ja existentes.
-    conexao = conectar()
-    try:
-        cursor = conexao.cursor()
-        cursor.execute(f"SELECT num_filme FROM filme;")
-        id_filmes = [id[0] for id in cursor.fetchall()]
-    except Error as e:
-        st.error(f"{e}")
-    finally:
-        if conexao.is_connected():
-            cursor.close()
-            conexao.close()
-    return id_filmes
-
-def canais_disponiveis():
-    conexao = conectar()
-    try:
-        cursor = conexao.cursor()
-        cursor.execute(f"SELECT num_canal FROM canal;")
-        id_canais = [id[0] for id in cursor.fetchall()]
-    except Error as e:
-        st.error(f"{e}")
-    finally:
-        if conexao.is_connected():
-            cursor.close()
-            conexao.close()
-    return id_canais
-
-
 st.subheader("Inserir dados")
 
-tabela_escolhida = st.selectbox("Escolha a tabela na qual deseja inserir",("Filme", "Canal", "exibicao"))
+tabela_escolhida = st.selectbox("Escolha a tabela na qual deseja inserir",("Filme", "Canal", "Exibicao"))
 
-with st.form("insert"):
+with st.form("Insert"):
     st.write(f"Insira dados na tabela {tabela_escolhida}")
 
     if tabela_escolhida=='Filme':
         num_filme = st.number_input('Numero ID do filme', value=None)
-        titulo_original = st.text_input('titulo original')
-        titulo_br = st.text_input('titulo brasileiro')
+        titulo_original = st.text_input('Titulo original')
+        titulo_br = st.text_input('Titulo brasileiro')
         ano = st.text_input('Ano')
         pais_origem = st.text_input('Pais de origem')
         categoria = st.text_input('Categoria')
@@ -83,9 +54,13 @@ with st.form("insert"):
             valores = (num_canal,nome_canal,sigla_canal)
             insert(tabela_escolhida,valores)
 
-    elif tabela_escolhida == 'exibicao':
-        num_filme_exibicao = st.selectbox('Numero ID filme ',filmes_disponiveis(), None, placeholder='Escolha um ID de um filme ja inserido.')
-        num_canal_exibicao = st.selectbox('Numero ID canal', canais_disponiveis(), None, placeholder='Escolha o ID de um canal ja inserido.')
+    elif tabela_escolhida == 'Exibicao':
+        nome_filmes = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme ja inserido.')
+        if nome_filmes:
+            num_filme_exibicao = get_id_filme(nome_filmes)
+        nome_canal_exibicao = st.selectbox('Numero ID canal', get_nome_canal(), None, placeholder='Escolha o ID de um canal ja inserido.')
+        if nome_canal_exibicao:
+            num_canal_exibicao = get_id_canal(nome_canal_exibicao)
         data_exibicao = st.text_input('Data e horario de exibição', placeholder='yyyy-mm-dd hh:mm:ss')
         submit_exibicao = st.form_submit_button('Inserir dados')
         if submit_exibicao:
