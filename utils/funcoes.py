@@ -14,7 +14,7 @@ def get_dados(tabela:str, coluna:str): # funcao para pegar dados em uma coluna x
     conexao = conectar()
     try:
         cursor = conexao.cursor()
-        cursor.execute(f"SELECT {coluna} FROM {tabela};")
+        cursor.execute(f"SELECT distinct {coluna} FROM {tabela};")
         dados = [id[0] for id in cursor.fetchall()]
     except Error as e:
         st.error(f"{e}")
