@@ -58,7 +58,7 @@ with st.form("Insert"):
         nome_filmes = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme já inserido.')
         if nome_filmes:
             num_filme_exibicao = get_id_filme(nome_filmes)
-        nome_canal_exibicao = st.selectbox('Numero ID canal', get_nome_canal(), None, placeholder='Escolha o ID de um canal já inserido.')
+        nome_canal_exibicao = st.selectbox('Nome do canal', get_nome_canal(), None, placeholder='Escolha um canal já inserido.')
         if nome_canal_exibicao:
             num_canal_exibicao = get_id_canal(nome_canal_exibicao)
         data_exibicao = st.text_input('Data e horário de exibição', placeholder='yyyy-mm-dd hh:mm:ss')

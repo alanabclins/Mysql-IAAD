@@ -52,9 +52,9 @@ with st.form("delete"):
 
 
     elif tabela_escolhida == 'Canal':
-        nome_canal = st.selectbox('Numero ID canal ',get_nome_canal(), None, placeholder='Escolha um ID de um canal já inserido.')
+        nome_canal = st.selectbox('Nome do canal ',get_nome_canal(), None, placeholder='Escolha canal já inserido.')
         if nome_canal:
-            num_canal = get_id_filme(nome_canal)
+            num_canal = get_id_canal(nome_canal)
         submit_delete = st.form_submit_button('Deletar')
         if submit_delete:
             
@@ -65,7 +65,7 @@ with st.form("delete"):
         nome_filme_exibicao = st.selectbox('Nome do filme ',get_nome_filme(), None, placeholder='Escolha um filme já inserido.')
         if nome_filme_exibicao:
             num_filme_exibicao = get_id_filme(nome_filme_exibicao)
-        nome_canal_exibicao = st.selectbox('Nome canal ',get_nome_canal(), None, placeholder='Escolha um canal já inserido.')
+        nome_canal_exibicao = st.selectbox('Nome do canal ',get_nome_canal(), None, placeholder='Escolha um canal já inserido.')
         if nome_canal_exibicao:
             num_canal_exibicao = get_id_canal(nome_canal_exibicao)
         data_exibicao = st.text_input('Data de exibição do filme a deletar')
